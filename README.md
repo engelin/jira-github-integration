@@ -20,4 +20,4 @@
  - Take an LGTM and go merge
 
 # Test non-sw project
-1) ERP-9 commit
+1) ERP-9 commit - X
