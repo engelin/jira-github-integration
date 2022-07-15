@@ -5,6 +5,7 @@
 3) A3MS-47 Branch created
 4) A3MS-47 PR created
 5) A3MS-47 commit to PR
+6) A3MS-47 merged
 
 # Automation test done
 ## Rules
@@ -17,3 +18,6 @@
  - Create a Pull request
 4) Done
  - Take an LGTM and go merge
+
+# Test non-sw project
+1) ERP-9 commit
