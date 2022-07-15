@@ -19,8 +19,9 @@ jobs:
       uses: atlassian/gajira-create@master
       with:
         project: A3MS
-        issuetype: Bug
-        summary: Issue created from ${{ github.repository }}
+        issuetype: Task
+        summary: Issue created from ${{ github.event.issue.title }}
+        description: ${{ github.event.issue.body }}
         
     - name: Log created issue
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
