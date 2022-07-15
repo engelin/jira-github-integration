@@ -20,7 +20,7 @@ jobs:
       with:
         project: A3MS
         issuetype: Task
-        summary: Issue created from ${{ github.event.issue.title }}
+        summary: ${{ github.event.issue.title }}
         description: ${{ github.event.issue.body }}
         
     - name: Log created issue
