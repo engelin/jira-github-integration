@@ -17,7 +17,7 @@ jobs:
 
     - name: Create Bug issue
       id: create-bug-issue
-#       if: ${{ github.event.issue.labels.name }} == "bug"
+      if: contains(github.event.pull_request.labels.*.name, 'tttt')
       run: |
         echo "${{ github.event.issue.labels.*.name }}"
 #       uses: atlassian/gajira-create@master
