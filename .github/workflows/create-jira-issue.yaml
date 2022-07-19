@@ -19,8 +19,7 @@ jobs:
       id: create-bug-issue
 #       if: ${{ github.event.issue.labels.name }} == "bug"
       run: |
-        echo "${{ github.event.issue.labels }}"
-        echo "${{ github.event.issue.labels.name }}"
+        echo "${{ github.event.label.name }}"
 #       uses: atlassian/gajira-create@master
 #       with:
 #         project: A3MS
