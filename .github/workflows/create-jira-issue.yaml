@@ -15,7 +15,7 @@ jobs:
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
     - name: Create Bug issue
-      id: create bug issue
+      id: create-bug-issue
       if: ${{ github.event.issue.labels.name }} == "bug"
       uses: atlassian/gajira-create@master
       with:
@@ -25,7 +25,7 @@ jobs:
         description: ${{ github.event.issue.body }}
         
     - name: Create Task issue
-      id: create task issue
+      id: create-task-issue
       if: ${{ github.event.issue.labels.name }} != "bug"
       uses: atlassian/gajira-create@master
       with:
