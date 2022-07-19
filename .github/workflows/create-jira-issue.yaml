@@ -14,28 +14,23 @@ jobs:
         JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-
-    - name: Create Bug issue
-      id: create-bug-issue
-      if: contains(github.event.pull_request.labels.*.name, 'tttt')
-      run: |
-        echo "${{ github.event.issue.labels.*.name }}"
-#       uses: atlassian/gajira-create@master
-#       with:
-#         project: A3MS
-#         issuetype: Bug
-#         summary: ${{ github.event.issue.title }}
-#         description: ${{ github.event.issue.body }}
         
-#     - name: Create Task issue
-#       id: create-task-issue
-#       if: ${{ github.event.issue.labels.name }} != "bug"
-#       uses: atlassian/gajira-create@master
-#       with:
-#         project: A3MS
-#         issuetype: Task
-#         summary: ${{ github.event.issue.title }}
-#         description: ${{ github.event.issue.body }}
+    - name: Set Issue Bug type
+      if: contains(github.event.pull_request.labels.*.name, 'bug') == true
+      run: echo "ISSUE_TYPE=Bug" >> $GITHUB_ENV
+      
+    - name: Set Issue Task type
+      if: contains(github.event.pull_request.labels.*.name, 'bug') == false
+      run: echo "ISSUE_TYPE=Task" >> $GITHUB_ENV
+
+    - name: Create issue
+      id: create
+      uses: atlassian/gajira-create@master
+      with:
+        project: A3MS
+        issuetype: ${{ env.ISSUE_TYPE }}
+        summary: ${{ github.event.issue.title }}
+        description: ${{ github.event.issue.body }}
         
 #     - name: Log created issue
 #       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
