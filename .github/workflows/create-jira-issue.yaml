@@ -16,11 +16,11 @@ jobs:
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         
     - name: Set Issue Bug type
-      if: contains(github.event.pull_request.labels.*.name, 'bug') == true
+      if: contains(github.event.issue.labels.*.name, 'bug') == true
       run: echo "ISSUE_TYPE=Bug" >> $GITHUB_ENV
       
     - name: Set Issue Task type
-      if: contains(github.event.pull_request.labels.*.name, 'bug') == false
+      if: contains(github.event.issue.labels.*.name, 'bug') == false
       run: echo "ISSUE_TYPE=Task" >> $GITHUB_ENV
 
     - name: Create issue
