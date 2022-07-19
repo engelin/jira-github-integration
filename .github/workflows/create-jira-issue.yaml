@@ -2,6 +2,7 @@ on:
   issues:
     types:
       - opened
+      - reopened
 
 jobs:
   create-jira-issue:
@@ -16,30 +17,33 @@ jobs:
 
     - name: Create Bug issue
       id: create-bug-issue
-      if: ${{ github.event.issue.labels.name }} == "bug"
-      uses: atlassian/gajira-create@master
-      with:
-        project: A3MS
-        issuetype: Bug
-        summary: ${{ github.event.issue.title }}
-        description: ${{ github.event.issue.body }}
+#       if: ${{ github.event.issue.labels.name }} == "bug"
+      run: |
+        echo "${{ github.event.issue.labels }}"
+        echo "${{ github.event.issue.labels.name }}"
+#       uses: atlassian/gajira-create@master
+#       with:
+#         project: A3MS
+#         issuetype: Bug
+#         summary: ${{ github.event.issue.title }}
+#         description: ${{ github.event.issue.body }}
         
-    - name: Create Task issue
-      id: create-task-issue
-      if: ${{ github.event.issue.labels.name }} != "bug"
-      uses: atlassian/gajira-create@master
-      with:
-        project: A3MS
-        issuetype: Task
-        summary: ${{ github.event.issue.title }}
-        description: ${{ github.event.issue.body }}
+#     - name: Create Task issue
+#       id: create-task-issue
+#       if: ${{ github.event.issue.labels.name }} != "bug"
+#       uses: atlassian/gajira-create@master
+#       with:
+#         project: A3MS
+#         issuetype: Task
+#         summary: ${{ github.event.issue.title }}
+#         description: ${{ github.event.issue.body }}
         
-    - name: Log created issue
-      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+#     - name: Log created issue
+#       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
     
-    - name: Create comment
-      uses: peter-evans/create-or-update-comment@v2
-      with:
-        issue-number: ${{ github.event.issue.number }}
-        body: |
-          Created a Jira issue with ${{ steps.create.outputs.issue }}
+#     - name: Create comment
+#       uses: peter-evans/create-or-update-comment@v2
+#       with:
+#         issue-number: ${{ github.event.issue.number }}
+#         body: |
+#           Created a Jira issue with ${{ steps.create.outputs.issue }}
