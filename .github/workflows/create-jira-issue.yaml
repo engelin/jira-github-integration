@@ -25,3 +25,10 @@ jobs:
         
     - name: Log created issue
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+    
+    - name: Create comment
+      uses: peter-evans/create-or-update-comment@v2
+      with:
+        issue-number: ${{ github.event.issue.number }}
+        body: |
+          Created a Jira issue with ${{ steps.create.outputs.issue }}
