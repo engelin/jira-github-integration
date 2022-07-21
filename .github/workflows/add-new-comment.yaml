@@ -27,7 +27,7 @@ jobs:
       uses: atlassian/gajira-comment@master
       with:
         issue: ${{ env.TICKET }}
-        comment: ${{ github.event.issue.comments }} by Github Issue
+        comment: ${{ github.event.comment.body }} by git_webhook
 
 
         # echo ${{ github.event.comment.body }}
