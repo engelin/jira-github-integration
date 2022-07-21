@@ -1,11 +1,12 @@
-name: Create a Jira Issue
+name: Add a new comment
 on: 
   issue_comment:
     types:
       - created
+      - edited
 
 jobs:
-  create-jira-issue:
+  add-new-comment:
     runs-on: ubuntu-latest
     steps:
     - name: Login to Jira
@@ -17,7 +18,11 @@ jobs:
     
     
     - name: Print a new comment
-      run: echo "${{ github.event.comment.bodyText }}"
+      run: |
+        echo ${{ github.event.comment.body }}
+        echo "${{ github.event.comment.body }}"
+        echo ${{ github.event.changes.body.from }}
+        echo "${{ github.event.changes.body.from }}"
       
 #     - name: Comment to JIRA
 #       if: contains(github.event.issue.labels.*.name, 'from jira') == false
