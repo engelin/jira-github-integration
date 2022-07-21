@@ -19,7 +19,7 @@ jobs:
     
     - name: Print a new comment
       run: |
-        echo ${{ github.event.issue.title }} | grep A3MS
+        echo ${{ github.event.issue.title }} | awk '/A3MS/ { print $1 }' 
         echo ${{ github.event.comment.body }}
         echo ${{ github.event.changes.body.from }}
         echo ${{ github.event.issue.comments }}
