@@ -16,14 +16,15 @@ jobs:
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
     
     - name: Set Issue Bug type
-      if: (contains(github.event.issue.labels.*.name, 'from jira') == false && contains(github.event.issue.labels.*.name, 'bug') == true)
+      if: contains(github.event.issue.labels.*.name, 'bug') == true
       run: echo "ISSUE_TYPE=Bug" >> $GITHUB_ENV
       
     - name: Set Issue Task type
-      if: (contains(github.event.issue.labels.*.name, 'from jira') == false && contains(github.event.issue.labels.*.name, 'bug') == false)
+      if: contains(github.event.issue.labels.*.name, 'bug') == false
       run: echo "ISSUE_TYPE=Task" >> $GITHUB_ENV
 
     - name: Create issue
+      if: contains(github.event.issue.labels.*.name, 'from jira') == false
       id: create
       uses: atlassian/gajira-create@master
       with:
@@ -33,9 +34,11 @@ jobs:
         description: git_webhook ${{ github.event.issue.body }}
         
     - name: Log created issue
+      if: contains(github.event.issue.labels.*.name, 'from jira') == false
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
     
     - name: Create comment
+      if: contains(github.event.issue.labels.*.name, 'from jira') == false
       uses: peter-evans/create-or-update-comment@v2
       with:
         issue-number: ${{ github.event.issue.number }}
