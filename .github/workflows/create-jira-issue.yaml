@@ -15,16 +15,12 @@ jobs:
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
     
-    - name: Check if issue is created by Jira
-      if: contains(github.event.issue.labels.*.name, 'from jira') == false
-      run: echo "This issue created by JIRA"
-      
     - name: Set Issue Bug type
-      if: contains(github.event.issue.labels.*.name, 'bug') == true
+      if: (contains(github.event.issue.labels.*.name, 'from jira') == false && contains(github.event.issue.labels.*.name, 'bug') == true)
       run: echo "ISSUE_TYPE=Bug" >> $GITHUB_ENV
       
     - name: Set Issue Task type
-      if: contains(github.event.issue.labels.*.name, 'bug') == false
+      if: (contains(github.event.issue.labels.*.name, 'from jira') == false && contains(github.event.issue.labels.*.name, 'bug') == false)
       run: echo "ISSUE_TYPE=Task" >> $GITHUB_ENV
 
 #     - name: Create issue
