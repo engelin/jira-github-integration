@@ -19,15 +19,18 @@ jobs:
     
     - name: Print a new comment
       run: |
-        echo ${{ github.event.issue.title }} | awk '/A3MS/ { print $1 }' 
-        echo ${{ github.event.comment.body }}
-        echo ${{ github.event.changes.body.from }}
-        echo ${{ github.event.issue.comments }}
+        export TICKET=$(echo ${{ github.event.issue.title }} | awk '/A3MS/ { print $1 }')
+        echo "TICKET=$TICKET" >> $GITHUB_ENV
       
-#     - name: Comment to JIRA
-#       if: contains(github.event.issue.labels.*.name, 'from jira') == false
-#       uses: atlassian/gajira-comment@master
-#       with:
-#         issue: ${{ github.event.comment.bodyText }}
-#         comment: |
-#           :boom: Created a Jira issue with ${{ steps.create.outputs.issue }}
+    - name: Comment to JIRA
+      if: contains(github.event.issue.labels.*.name, 'from jira') == false
+      uses: atlassian/gajira-comment@master
+      with:
+        issue: ${{ env.TICKET }}
+        comment: ${{ github.event.issue.comments }} by Github Issue
+
+
+        # echo ${{ github.event.comment.body }}
+        # echo ${{ github.event.changes.body.from }}
+        # echo ${{ github.event.issue.comments }}
+
