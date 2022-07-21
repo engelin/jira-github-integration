@@ -22,6 +22,7 @@ jobs:
         echo ${{ github.event.issue.body }}
         echo ${{ github.event.comment.body }}
         echo ${{ github.event.changes.body.from }}
+        echo ${{ github.event.issue.comments }}
       
 #     - name: Comment to JIRA
 #       if: contains(github.event.issue.labels.*.name, 'from jira') == false
