@@ -44,3 +44,11 @@ jobs:
         issue-number: ${{ github.event.issue.number }}
         body: |
           Created a Jira issue with ${{ steps.create.outputs.issue }}
+          
+    - name: Update issue
+      uses: actions-cool/issues-helper@v3
+      with:
+        actions: 'update-issue'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.issue.number }}
+        title: ${{ steps.create.outputs.issue }} ${{ github.event.issue.title }}
