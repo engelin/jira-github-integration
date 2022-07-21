@@ -30,8 +30,8 @@ jobs:
       with:
         project: A3MS
         issuetype: ${{ env.ISSUE_TYPE }}
-        summary: ${{ github.event.issue.title }}
-        description: git_webhook ${{ github.event.issue.body }}
+        summary: git_webhook) ${{ github.event.issue.title }}
+        description: ${{ github.event.issue.body }}
         
     - name: Log created issue
       if: contains(github.event.issue.labels.*.name, 'from jira') == false
