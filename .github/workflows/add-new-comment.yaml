@@ -1,0 +1,28 @@
+name: Create a Jira Issue
+on: 
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  create-jira-issue:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to Jira
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+    
+    
+    - name: Print a new comment
+      run: echo "${{ github.event.comment.bodyText }}"
+      
+#     - name: Comment to JIRA
+#       if: contains(github.event.issue.labels.*.name, 'from jira') == false
+#       uses: atlassian/gajira-comment@master
+#       with:
+#         issue: ${{ github.event.comment.bodyText }}
+#         comment: |
+#           :boom: Created a Jira issue with ${{ steps.create.outputs.issue }}
