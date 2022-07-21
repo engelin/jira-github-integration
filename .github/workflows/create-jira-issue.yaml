@@ -37,13 +37,19 @@ jobs:
       if: contains(github.event.issue.labels.*.name, 'from jira') == false
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
     
-    - name: Create comment
-      if: contains(github.event.issue.labels.*.name, 'from jira') == false
-      uses: peter-evans/create-or-update-comment@v2
+#     - name: Create comment
+#       if: contains(github.event.issue.labels.*.name, 'from jira') == false
+#       uses: peter-evans/create-or-update-comment@v2
+#       with:
+#         issue-number: ${{ github.event.issue.number }}
+#         body: |
+#           Created a Jira issue with ${{ steps.create.outputs.issue }}
+          
+    - name: Comment to JIRA
+      uses: atlassian/gajira-comment@master
       with:
-        issue-number: ${{ github.event.issue.number }}
-        body: |
-          Created a Jira issue with ${{ steps.create.outputs.issue }}
+        issue: ${{ steps.create.outputs.issue }}
+        comment: Git ticket num-${{ github.event.issue.number }} by git_webhook
           
     - name: Update issue
       uses: actions-cool/issues-helper@v3
