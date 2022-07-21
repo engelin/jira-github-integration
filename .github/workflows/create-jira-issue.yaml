@@ -23,21 +23,21 @@ jobs:
       if: (contains(github.event.issue.labels.*.name, 'from jira') == false && contains(github.event.issue.labels.*.name, 'bug') == false)
       run: echo "ISSUE_TYPE=Task" >> $GITHUB_ENV
 
-#     - name: Create issue
-#       id: create
-#       uses: atlassian/gajira-create@master
-#       with:
-#         project: A3MS
-#         issuetype: ${{ env.ISSUE_TYPE }}
-#         summary: ${{ github.event.issue.title }}
-#         description: ${{ github.event.issue.body }}
+    - name: Create issue
+      id: create
+      uses: atlassian/gajira-create@master
+      with:
+        project: A3MS
+        issuetype: ${{ env.ISSUE_TYPE }}
+        summary: ${{ github.event.issue.title }}
+        description: git_webhook ${{ github.event.issue.body }}
         
-#     - name: Log created issue
-#       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+    - name: Log created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
     
-#     - name: Create comment
-#       uses: peter-evans/create-or-update-comment@v2
-#       with:
-#         issue-number: ${{ github.event.issue.number }}
-#         body: |
-#           Created a Jira issue with ${{ steps.create.outputs.issue }}
+    - name: Create comment
+      uses: peter-evans/create-or-update-comment@v2
+      with:
+        issue-number: ${{ github.event.issue.number }}
+        body: |
+          Created a Jira issue with ${{ steps.create.outputs.issue }}
