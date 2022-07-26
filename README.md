@@ -1,3 +1,7 @@
+[![Create jira issue](https://github.com/Arum-3d-solutions/test-for-jira/actions/workflows/create-jira-issue.yaml/badge.svg)](https://github.com/Arum-3d-solutions/test-for-jira/actions/workflows/create-jira-issue.yaml)
+[![Add new comment](https://github.com/Arum-3d-solutions/test-for-jira/actions/workflows/add-new-comment.yaml/badge.svg)](https://github.com/Arum-3d-solutions/test-for-jira/actions/workflows/add-new-comment.yaml)
+
+
 # test-for-jira
 
 1) Change for A3MS-47
